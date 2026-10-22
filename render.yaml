@@ -1,0 +1,22 @@
+# One-click deployment blueprint for Render.
+# https://render.com/deploy?repo=https://github.com/brycejensen540/yp3
+services:
+  - type: web
+    name: yp3
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: MAX_CONCURRENT
+        value: "2"
+      - key: MAX_DURATION_SECONDS
+        value: "10800"
+      - key: JOB_TTL_MS
+        value: "2700000"

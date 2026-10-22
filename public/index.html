@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>yp3 — Video to MP3 at 320 kbps</title>
+    <meta
+      name="description"
+      content="Paste a video link from YouTube, Vimeo, SoundCloud and more. yp3 converts it to a clean, tagged 320 kbps MP3 you can download in seconds."
+    />
+    <meta name="theme-color" content="#0a7fa8" />
+    <meta property="og:title" content="yp3 — Video to MP3 at 320 kbps" />
+    <meta
+      property="og:description"
+      content="Turn any video link into a crisp 320 kbps MP3. No account, no clutter, files deleted automatically."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#convert">Skip to converter</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="yp3 home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M4 10v4" />
+              <path d="M8 7v10" />
+              <path d="M12 4v16" />
+              <path d="M16 7v10" />
+              <path d="M20 10v4" />
+            </svg>
+          </span>
+          <span class="brand-text">yp3<span class="brand-sub">audio</span></span>
+        </a>
+
+        <nav class="site-nav" aria-label="Sections">
+          <a href="#how">How it works</a>
+          <a href="#quality">Quality</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <a class="ghost-link" href="https://github.com/brycejensen540/yp3" target="_blank" rel="noreferrer noopener">
+          GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M7 17 17 7" />
+            <path d="M9 7h8v8" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="convert">
+        <div class="shell hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span>320 kbps MP3 &middot; no account needed</p>
+            <h1>Turn any video link into a <span class="mark">clean MP3</span>.</h1>
+            <p class="lede">
+              Paste a link from YouTube, Vimeo, SoundCloud and more. yp3 pulls the best audio stream the source offers
+              and encodes it at a constant 320 kbps, with tags, in a couple of minutes.
+            </p>
+
+            <ul class="hero-points">
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <path d="m5 13 4 4L19 7" />
+                  </svg>
+                </span>
+                Highest available audio, not a screen rip
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <path d="m5 13 4 4L19 7" />
+                  </svg>
+                </span>
+                Tagged with title and artist automatically
+              </li>
+              <li>
+                <span class="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                    <path d="m5 13 4 4L19 7" />
+                  </svg>
+                </span>
+                Files leave the server after 45 minutes
+              </li>
+            </ul>
+          </div>
+
+          <div class="converter">
+            <div class="converter-head">
+              <span class="lights" aria-hidden="true"><i class="light cerulean"></i><i class="light orange"></i><i class="light yellow"></i></span>
+              <span class="converter-label">New conversion</span>
+              <span class="pill">MP3 &middot; 320 kbps</span>
+            </div>
+
+            <form class="convert-form" id="convert-form" novalidate>
+              <label class="field-label" for="video-url">Video link</label>
+              <div class="input-row">
+                <span class="input-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" />
+                    <path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" />
+                  </svg>
+                </span>
+                <input
+                  id="video-url"
+                  name="url"
+                  type="url"
+                  inputmode="url"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  aria-describedby="url-hint"
+                  required
+                />
+                <button type="button" class="paste-btn" id="paste-btn">Paste</button>
+              </div>
+              <p class="field-hint" id="url-hint">Works with YouTube, Vimeo, SoundCloud, TikTok, X and a dozen other sites.</p>
+
+              <button type="submit" class="btn btn-primary" id="convert-btn">
+                <span class="btn-label">Convert to MP3</span>
+                <span class="spinner" aria-hidden="true" hidden></span>
+              </button>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+            </form>
+
+            <div class="result" id="result" hidden>
+              <strong class="sr-only" id="result-status" aria-live="polite"></strong>
+              <div class="result-card" id="result-card">
+                <div class="result-thumb">
+                  <img id="result-image" alt="" hidden />
+                  <svg class="thumb-placeholder" id="thumb-placeholder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="16" rx="3" />
+                    <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none" />
+                  </svg>
+                </div>
+                <div class="result-main">
+                  <p class="result-kicker" id="result-kicker">Converting</p>
+                  <p class="result-title" id="result-title">Reading video details…</p>
+                  <p class="result-meta" id="result-meta"></p>
+
+                  <div
+                    class="progress"
+                    id="progress"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    aria-label="Conversion progress"
+                  >
+                    <span class="progress-fill" id="progress-fill"></span>
+                  </div>
+                  <div class="progress-row">
+                    <span id="stage-label">Queued</span>
+                    <span id="percent-label">0%</span>
+                  </div>
+
+                  <div class="result-actions" id="result-actions" hidden>
+                    <a class="btn btn-download" id="download-link" href="#" download>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="M12 4v11" />
+                        <path d="m7 11 5 5 5-5" />
+                        <path d="M5 20h14" />
+                      </svg>
+                      Download MP3
+                    </a>
+                    <button type="button" class="btn btn-quiet" id="reset-btn">Convert another</button>
+                  </div>
+
+                  <button type="button" class="link-btn" id="retry-btn" hidden>Try another link</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="converter-foot">
+              <span>Up to 3 hours</span>
+              <span class="sep" aria-hidden="true"></span>
+              <span>No account</span>
+              <span class="sep" aria-hidden="true"></span>
+              <span>Auto-deleted</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="shell">
+          <div class="trust-strip">
+            <span class="trust-label">Supported sources</span>
+            <ul class="trust-list">
+              <li>YouTube</li>
+              <li>Vimeo</li>
+              <li>SoundCloud</li>
+              <li>TikTok</li>
+              <li>X</li>
+              <li>Facebook</li>
+              <li>Instagram</li>
+              <li>Dailymotion</li>
+              <li>Bandcamp</li>
+              <li>Twitch</li>
+              <li>Reddit</li>
+              <li>Archive.org</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow eyebrow-quiet">How it works</p>
+            <h2>Three steps, no clutter.</h2>
+            <p class="section-lede">
+              yp3 is a thin, honest wrapper around two trusted open-source tools: yt-dlp for fetching and ffmpeg for
+              encoding. Nothing is re-uploaded to a third party.
+            </p>
+          </div>
+
+          <ol class="steps">
+            <li class="step step-cerulean">
+              <span class="step-number">01</span>
+              <h3>Paste a link</h3>
+              <p>Drop in any video or track URL. yp3 recognises the source and reads its details before downloading.</p>
+            </li>
+            <li class="step step-orange">
+              <span class="step-number">02</span>
+              <h3>We fetch the audio</h3>
+              <p>The best audio-only stream the site offers is downloaded — never a low-bitrate screen capture.</p>
+            </li>
+            <li class="step step-yellow">
+              <span class="step-number">03</span>
+              <h3>Download your MP3</h3>
+              <p>ffmpeg encodes a constant 320 kbps file, tags it with the title and artist, and hands it over.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section-tint" id="quality">
+        <div class="shell quality-grid">
+          <div class="quality-copy">
+            <p class="eyebrow eyebrow-quiet">About the audio</p>
+            <h2>Maximum quality, stated plainly.</h2>
+            <p>
+              MP3 is a lossy format. No encoder can make an MP3 file lossless, and any site claiming otherwise is
+              stretching the truth. What yp3 does is squeeze out everything the format allows: a constant 320 kbps
+              encode from the highest-quality source stream, with no extra re-encoding along the way.
+            </p>
+            <p>
+              If the source itself is a low-bitrate upload, the result will match that source. You get an exact ceiling,
+              not a promise you can't hear.
+            </p>
+          </div>
+
+          <div class="quality-stats">
+            <div class="stat stat-feature">
+              <span class="stat-value">320</span>
+              <span class="stat-unit">kbps CBR</span>
+              <span class="stat-note">The highest bitrate MP3 supports</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">48</span>
+              <span class="stat-unit">kHz</span>
+              <span class="stat-note">Full-band stereo output</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">ID3</span>
+              <span class="stat-unit">tags</span>
+              <span class="stat-note">Title and artist embedded</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">45</span>
+              <span class="stat-unit">minutes</span>
+              <span class="stat-note">Then your file is deleted</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow eyebrow-quiet">Why yp3</p>
+            <h2>Built to stay out of the way.</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <span class="feature-icon icon-cerulean" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="8" r="3.2" />
+                  <path d="M5 20a7 7 0 0 1 14 0" />
+                </svg>
+              </span>
+              <h3>No sign-up, ever</h3>
+              <p>No account, no email, no newsletter prompt. Paste a link and go.</p>
+            </article>
+            <article class="feature">
+              <span class="feature-icon icon-orange" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </span>
+              <h3>Private by default</h3>
+              <p>Files live on the server only long enough to download, then they are purged.</p>
+            </article>
+            <article class="feature">
+              <span class="feature-icon icon-yellow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M4 17V9" />
+                  <path d="M9 17V5" />
+                  <path d="M14 17v-6" />
+                  <path d="M19 17V7" />
+                </svg>
+              </span>
+              <h3>Tagged and tidy</h3>
+              <p>Files arrive named after the video with title and artist metadata attached.</p>
+            </article>
+            <article class="feature">
+              <span class="feature-icon icon-ink" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="8.5" />
+                  <path d="M12 7.5V12l3 2" />
+                </svg>
+              </span>
+              <h3>Honest limits</h3>
+              <p>Two conversions at a time keeps the queue fast for everyone. Long videos are capped at three hours.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tint" id="faq">
+        <div class="shell faq-grid">
+          <div class="faq-head">
+            <p class="eyebrow eyebrow-quiet">FAQ</p>
+            <h2>Questions people actually ask.</h2>
+            <p class="section-lede">Still stuck? Open an issue on the GitHub repository.</p>
+          </div>
+
+          <div class="faq-list">
+            <details open>
+              <summary>Is the MP3 lossless?</summary>
+              <p>
+                No — MP3 is a lossy format by design, so a "lossless MP3" does not exist. yp3 encodes at 320 kbps
+                constant bitrate, the highest quality MP3 supports, from the best audio stream available. That is the
+                practical ceiling for an MP3.
+              </p>
+            </details>
+            <details>
+              <summary>Which sites can I use?</summary>
+              <p>
+                YouTube, Vimeo, SoundCloud, TikTok, X, Facebook, Instagram, Dailymotion, Bandcamp, Twitch, Reddit,
+                Archive.org and other public sites supported by yt-dlp. Links to private, members-only or age-restricted
+                content cannot be converted.
+              </p>
+            </details>
+            <details>
+              <summary>How long does a conversion take?</summary>
+              <p>
+                Usually well under a minute for a typical song. Longer videos scale with length, since the audio stream
+                is downloaded and then encoded. The progress bar tracks both stages.
+              </p>
+            </details>
+            <details>
+              <summary>What happens to my files?</summary>
+              <p>
+                Finished MP3s are stored in a temporary directory and deleted automatically after 45 minutes, or as soon
+                as the server restarts. Nothing is kept for analytics, and no link to your download is shared.
+              </p>
+            </details>
+            <details>
+              <summary>Why did my link fail?</summary>
+              <p>
+                Common causes: the video is private or removed, it is live right now, it is region locked, or the source
+                site is temporarily limiting automated requests. Retrying in a few minutes usually clears the last case.
+              </p>
+            </details>
+            <details>
+              <summary>Can I use this for anything?</summary>
+              <p>
+                Only download content you own or have permission to use. Respect the terms of service of the source site
+                and the rights of the creator. yp3 is a tool, not a licence.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <a class="brand brand-small" href="/" aria-label="yp3 home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M4 10v4" />
+                <path d="M8 7v10" />
+                <path d="M12 4v16" />
+                <path d="M16 7v10" />
+                <path d="M20 10v4" />
+              </svg>
+            </span>
+            <span class="brand-text">yp3<span class="brand-sub">audio</span></span>
+          </a>
+          <p>Video links in. Clean MP3s out.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#how">How it works</a>
+          <a href="#quality">Quality</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://github.com/brycejensen540/yp3" target="_blank" rel="noreferrer noopener">Source</a>
+        </nav>
+
+        <p class="footer-note">
+          Download only what you have the rights to. Files are removed automatically.
+        </p>
+        <p class="footer-copy">© <span id="year">2026</span> yp3</p>
+      </div>
+    </footer>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

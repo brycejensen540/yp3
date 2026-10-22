@@ -1,0 +1,11 @@
+node_modules
+bin
+tmp
+.git
+.gitignore
+*.log
+check.mp3
+headers.txt
+.jobid
+.server.pid
+.env
