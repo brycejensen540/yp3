@@ -287,7 +287,7 @@ button {
 
 .hero {
   position: relative;
-  padding: 76px 0 0;
+  padding: 44px 0 0;
   overflow: hidden;
 }
 
@@ -310,9 +310,9 @@ button {
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
-  gap: 64px;
-  align-items: center;
+  grid-template-columns: 0.94fr 1.06fr;
+  gap: 56px;
+  align-items: start;
   padding-bottom: 52px;
   z-index: 1;
 }
@@ -1355,6 +1355,10 @@ h1 {
     max-width: 640px;
   }
 
+  .hero-grid {
+    align-items: stretch;
+  }
+
   .quality-grid,
   .faq-grid {
     grid-template-columns: 1fr;
@@ -1392,7 +1396,7 @@ h1 {
   }
 
   .hero {
-    padding-top: 48px;
+    padding-top: 28px;
   }
 
   .hero-grid {
