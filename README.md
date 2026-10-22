@@ -6,6 +6,9 @@ yp3 is a small, self-hostable web app that turns a public video link into a tagg
 constant 320 kbps MP3 you can download. It uses [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 to fetch the best audio stream a site offers and [ffmpeg](https://ffmpeg.org) to encode it.
 
+**Live instance:** <https://yp3.onrender.com> (free Render plan, so the first request after
+15 minutes of quiet takes around 30 seconds to wake).
+
 ![Node](https://img.shields.io/badge/node-%3E%3D20-0a7fa8)
 ![License](https://img.shields.io/badge/license-MIT-e9661c)
 
