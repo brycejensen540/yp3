@@ -20,3 +20,7 @@ services:
         value: "10800"
       - key: JOB_TTL_MS
         value: "2700000"
+      # Add a Render secret file named cookies.txt to unlock YouTube from
+      # datacenter IPs. The app ignores this path when the file does not exist.
+      - key: YTDLP_COOKIES_FILE
+        value: /etc/secrets/cookies.txt

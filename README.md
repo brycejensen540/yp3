@@ -14,7 +14,7 @@ to fetch the best audio stream a site offers and [ffmpeg](https://ffmpeg.org) to
 - Accepts links from YouTube, Vimeo, SoundCloud, TikTok, X, Facebook, Instagram,
   Dailymotion, Bandcamp, Twitch, Reddit, Archive.org and other public sites yt-dlp supports.
 - Downloads the highest-quality **audio-only** stream, never a screen rip.
-- Encodes **MP3 at a constant 320 kbps**, 48 kHz stereo, with title and artist tags embedded.
+- Encodes **MP3 at a constant 320 kbps**, preserving the source sample rate, with title and artist tags embedded.
 - Streams progress to the browser and serves the finished file as a download.
 - Deletes every artefact after 45 minutes.
 
@@ -97,10 +97,21 @@ runs as the unprivileged `node` user.
 ### Notes for hosted deployments
 
 YouTube frequently challenges requests coming from datacenter IPs with
-*"Sign in to confirm you're not a bot"*. When that happens, supply a cookie file from a
-signed-in browser session via `YTDLP_COOKIES_FILE` and rebuild/redeploy. Residential IPs
-are rarely challenged. Keeping the image recent also matters, since yt-dlp ships fixes for
-YouTube changes almost weekly.
+*"Sign in to confirm you're not a bot"*. The block is tied to the server's IP, so changing
+player clients or impersonation does not clear it; supplying cookies does. Render secret
+files are the simplest route, and the blueprint already points `YTDLP_COOKIES_FILE` at
+`/etc/secrets/cookies.txt`:
+
+1. Export cookies for `youtube.com` in Netscape format from a signed-in browser
+   (a throwaway account is wise — cookies grant access to it).
+2. In Render, open the service → **Environment** → **Secret Files** → **Add file**, name it
+   `cookies.txt`, and paste the contents.
+3. Save; the service restarts and picks the file up. The app ignores the setting when the
+   file is absent.
+
+Cookies expire (usually after a few weeks), so treat this as a maintenance task rather than
+a one-off. A residential proxy solves it without cookies, at a cost. Keeping the image
+recent also matters, since yt-dlp ships fixes for YouTube changes almost weekly.
 
 ## Security posture
 

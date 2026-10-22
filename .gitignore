@@ -7,3 +7,5 @@ tmp/
 *.log
 .server.pid
 .DS_Store
+.live*.json
+.live.mp3
