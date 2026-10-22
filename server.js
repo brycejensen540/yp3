@@ -73,12 +73,15 @@ const readLimiter = rateLimit({
   message: { error: 'Too many requests. Please slow down.' },
 });
 
+// Liveness, not a converter smoke test: the platform should keep a running
+// instance that can serve the page even if a source site is being difficult.
 app.get('/healthz', (req, res) => {
   const binaries = binaryReport();
-  res.status(binaries.ready ? 200 : 503).json({
+  res.status(200).set('Cache-Control', 'no-store').json({
     status: binaries.ready ? 'ok' : 'degraded',
     converter: binaries.ready ? 'available' : 'unavailable',
-    ffmpeg: Boolean(binaries.ffmpeg),
+    ytDlp: binaries.ytDlp,
+    ffmpeg: binaries.ffmpeg,
     uptime: Math.round(process.uptime()),
   });
 });
@@ -174,7 +177,8 @@ startMaintenance();
 app.listen(PORT, () => {
   console.log(`[yp3] listening on http://localhost:${PORT}`);
   console.log(`[yp3] yt-dlp: ${report.ytDlp || 'NOT FOUND (run: npm run setup:ytdlp)'}`);
-  console.log(`[yp3] ffmpeg: ${report.ffmpeg}`);
+  if (report.ytDlp) console.log(`[yp3] yt-dlp exists: ${report.ytDlpExists}`);
+  console.log(`[yp3] ffmpeg: ${report.ffmpeg || 'NOT FOUND'}`);
   console.log(`[yp3] max duration: ${formatDuration(MAX_DURATION_SECONDS)}, concurrency: ${process.env.MAX_CONCURRENT || 2}`);
 });
 
